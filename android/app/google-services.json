@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "148305553486",
+    "firebase_url": "https://rw-symposium.firebaseio.com",
+    "project_id": "rw-symposium",
+    "storage_bucket": "rw-symposium.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:148305553486:android:8efb79a81533cdc45b7b1f",
+        "android_client_info": {
+          "package_name": "es.zylocod.rw_symposium_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "148305553486-dal4b6jn2orkc7sqfeg9168bcud69c9h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDm_Wb6fo67QMZR9e9wDUWPsg3VTo7CWs0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "148305553486-dal4b6jn2orkc7sqfeg9168bcud69c9h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
