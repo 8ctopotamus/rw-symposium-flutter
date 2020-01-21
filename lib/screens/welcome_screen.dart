@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rw_symposium_flutter/screens/login_screen.dart';
 import 'package:rw_symposium_flutter/screens/registration_screen.dart';
 import 'package:rw_symposium_flutter/components/rounded_button';
@@ -21,22 +22,24 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Row(
+            Column(
               children: <Widget>[
-//                Hero(
-//                  tag: 'logo',
-//                  child: Container(
-//                    child: Image.asset('images/logo.png'),
-//                    height: 60,
-//                  ),
-//                ),
-                Text(
-                  'RW Symposium',
-                  style: TextStyle(
-                    fontSize: 45.0,
-                    fontWeight: FontWeight.w900,
+                Hero(
+                  tag: 'logo',
+                  child: Container(
+                    child: SvgPicture.asset(
+                      'images/logo.svg',
+                      semanticsLabel: 'Acme Logo',
+                    ),
                   ),
                 ),
+//                Text(
+//                  'RW Symposium',
+//                  style: TextStyle(
+//                    fontSize: 45.0,
+//                    fontWeight: FontWeight.w900,
+//                  ),
+//                ),
               ],
             ),
             SizedBox(
