@@ -30,6 +30,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                     child: SvgPicture.asset(
                       'images/logo.svg',
                       semanticsLabel: 'Acme Logo',
+                      width: 700,
                     ),
                   ),
                 ),

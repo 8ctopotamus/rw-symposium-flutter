@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:rw_symposium_flutter/components/layout.dart';
+import 'package:rw_symposium_flutter/screens/presentation_screen.dart';
 
 final _firestore = Firestore.instance;
+final _cloudStorage = FirebaseStorage.instance;
 
 class PresentationsScreen extends StatefulWidget {
   static const String id = 'presentations_screen';
@@ -13,8 +15,7 @@ class PresentationsScreen extends StatefulWidget {
 }
 
 class _PresentationsScreenState extends State<PresentationsScreen> {
-  final _auth = FirebaseAuth.instance;
-  List<DocumentSnapshot> presentations = [];
+  List<Map> presentations = [];
 
   @override
   void initState() {
@@ -23,14 +24,24 @@ class _PresentationsScreenState extends State<PresentationsScreen> {
   }
 
   void getPresentations () async {
-    final docs = await _firestore.collection('presentations').getDocuments();
-
-//    for (var doc in docs.documents) {
-//      print(doc.documentID);
-//    }
-
+    final collection = await _firestore.collection('presentations').getDocuments();
+    List<Map> docs = [];
+    for (var doc in collection.documents) {
+      try {
+        String url = doc['speaker']['image'];
+        var imageURL = await _cloudStorage.ref().child(url).getDownloadURL();
+        docs.add({
+          ...doc.data,
+          'id': doc.documentID,
+          'image': imageURL
+        });
+      } 
+      catch (err) {
+        print(err);
+      }
+    }
     setState(() {
-      presentations = docs.documents;
+      presentations = docs;
     });
   }
 
@@ -42,14 +53,18 @@ class _PresentationsScreenState extends State<PresentationsScreen> {
         itemCount: presentations.length,
         itemBuilder: (BuildContext context, int idx) {
           final presentation = presentations[idx];
-          final String id = presentation.documentID;
-          final data = presentation.data;
           return Card(
             child: ListTile(
-              leading: Text('Image'),
-              title: Text(data['title']),
+              leading: Image.network(presentation['image']),
+              // Hero(
+              //   tag: 'speaker',
+              //   child: Image.network(presentation['image']),
+              // ),
+              title: Text(presentation['title']),
               onTap: () {
-                print(id);
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => PresentationScreen(data: presentation),
+                ));
               },
             ),
           );
