@@ -4,6 +4,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:rw_symposium_flutter/components/layout.dart';
 import 'package:rw_symposium_flutter/screens/presentation_screen.dart';
+import 'package:rw_symposium_flutter/utils/helpers.dart';
 
 final _firestore = Firestore.instance;
 final _cloudStorage = FirebaseStorage.instance;
@@ -60,12 +61,12 @@ class _PresentationsScreenState extends State<PresentationsScreen> {
             final presentation = presentations[idx];
             return Card(
               child: ListTile(
-                // leading: Image.network(presentation['image']),
                 leading: Hero(
                   tag: 'speaker-${presentation['id']}',
                   child: Image.network(presentation['image']),
                 ),
                 title: Text(presentation['title']),
+                subtitle: Text(convertStamp(presentation['time']).toString()),
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(
                     builder: (context) => PresentationScreen(data: presentation),

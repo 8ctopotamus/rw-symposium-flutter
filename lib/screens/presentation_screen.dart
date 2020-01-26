@@ -1,23 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rw_symposium_flutter/components/layout.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-DateTime _convertStamp(Timestamp _stamp) {
-  if (_stamp != null) {
-    return Timestamp(_stamp.seconds, _stamp.nanoseconds).toDate();
-    /*
-    if (Platform.isIOS) {
-      return _stamp.toDate();
-    } else {
-      return Timestamp(_stamp.seconds, _stamp.nanoseconds).toDate();
-    }
-    */
-  } else {
-    return null;
-  }
-}
-
+import 'package:rw_symposium_flutter/components/layout.dart';
+import 'package:rw_symposium_flutter/utils/helpers.dart';
 
 class PresentationScreen extends StatelessWidget {
   final data;
@@ -35,7 +19,7 @@ class PresentationScreen extends StatelessWidget {
               tag: 'speaker-${data['id']}',
               child: Image.network(data['image']),
             ),
-            Text(_convertStamp(data['time']).toString()),
+            Text(convertStamp(data['time']).toString()),
             Text(
               data['title'],
               style: TextStyle(
