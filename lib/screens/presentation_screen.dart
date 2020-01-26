@@ -31,11 +31,10 @@ class PresentationScreen extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            // Hero(
-            //   tag: 'speaker',
-            //   child: Image.network(data['image']),
-            // ),
-            Image.network(data['image']),
+            Hero(
+              tag: 'speaker-${data['id']}',
+              child: Image.network(data['image']),
+            ),
             Text(_convertStamp(data['time']).toString()),
             Text(
               data['title'],
