@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:rw_symposium_flutter/constants.dart';
 import 'package:rw_symposium_flutter/components/rounded_button';
-import 'package:rw_symposium_flutter/screens/presentations_screen.dart';
+import 'package:rw_symposium_flutter/screens/bottom_nav_screen.dart';
 import 'package:rw_symposium_flutter/screens/welcome_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -77,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   });
                   final user = await _auth.signInWithEmailAndPassword(email: email.trim(), password: password.trim());
                   if (user != null) {
-                    Navigator.pushNamed(context, PresentationsScreen.id);
+                    Navigator.pushNamed(context, BottomNavScreen.id);
                   } else {
                     Navigator.pushNamed(context, WelcomeScreen.id);
                   }
