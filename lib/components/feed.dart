@@ -24,10 +24,12 @@ class _FeedState extends State<Feed> {
       .collection('feed')
       .limit(20)
       .getDocuments();
-    setState(() {
-      posts = collection.documents;
-      showSpinner = false;
-    });
+    if (this.mounted) {
+      setState(() {
+        posts = collection.documents;
+        showSpinner = false;
+      });
+    }
   }
 
   @override

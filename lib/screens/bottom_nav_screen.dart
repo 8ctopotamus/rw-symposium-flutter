@@ -64,7 +64,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
             },
           ),
         ],
-        title: Text('RW Symposium 2020'),
+        title: Text('RW Symposium ${DateTime.now().year}'),
       ),
       body: _widgetOptions[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(

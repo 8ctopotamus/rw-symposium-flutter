@@ -25,10 +25,12 @@ class _UserListState extends State<UserList> {
       .collection('users')
       .limit(20)
       .getDocuments();
-    setState(() {
-      users = collection.documents;
-      showSpinner = false;
-    });
+    if (this.mounted) {
+      setState(() {
+        users = collection.documents;
+        showSpinner = false;
+      });
+    }
   }
   
   @override

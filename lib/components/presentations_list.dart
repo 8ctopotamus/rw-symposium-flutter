@@ -45,10 +45,12 @@ class _PresentationsScreenState extends State<PresentationsScreen> {
         print(err);
       }
     }
-    setState(() {
-      showSpinner = false;
-      presentations = docs;
-    });
+    if (this.mounted) {
+      setState(() {
+        showSpinner = false;
+        presentations = docs;
+      });
+    }
   }
 
   @override

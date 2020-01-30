@@ -14,6 +14,12 @@ class UserDetailScreen extends StatelessWidget {
         children: <Widget>[
           Text(data['username']),
           Text(data['designation']),
+          Text(data['avatar']),
+          Text(data['points']),
+          Text(data['email']),
+          Text(data['phone']),
+          Text(data['website']),
+          Text(data['bio']),
         ],
       ),
     );
