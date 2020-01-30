@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rw_symposium_flutter/screens/welcome_screen.dart';
-import 'package:rw_symposium_flutter/screens/presentations_screen.dart';
+import 'package:rw_symposium_flutter/components/feed.dart';
+import 'package:rw_symposium_flutter/components/presentations_list.dart';
+import 'package:rw_symposium_flutter/components/user_list.dart';
 
 FirebaseUser loggedInUser;
 
@@ -19,14 +21,8 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
   static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   final _widgetOptions = <Widget>[
     PresentationsScreen(),
-    Text(
-      'Index 1: Feed',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Schedule',
-      style: optionStyle,
-    ),
+    Feed(),
+    UserList(),
   ];
 
   void _onItemTapped(int index) {

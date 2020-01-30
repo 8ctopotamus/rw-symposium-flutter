@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:rw_symposium_flutter/screens/presentation_screen.dart';
+import 'package:rw_symposium_flutter/screens/presentation_detail_screen.dart';
 import 'package:rw_symposium_flutter/utils/helpers.dart';
 
 final _firestore = Firestore.instance;
@@ -26,33 +26,34 @@ class _PresentationsScreenState extends State<PresentationsScreen> {
   }
 
   void getPresentations () async {
-    if (presentations.isEmpty == true) {
-      final collection = await _firestore
-        .collection('presentations')
-        .orderBy('time')
-        .getDocuments();
-      List<Map> docs = [];
-      for (var doc in collection.documents) {
-        try {
-          String url = doc['speaker']['image'];
-          var imageURL = await _cloudStorage.ref().child(url).getDownloadURL();
-          docs.add({
-            ...doc.data,
-            'id': doc.documentID,
-            'image': imageURL
-          });
-        } 
-        catch (err) {
-          print(err);
-        }
+    final collection = await _firestore
+      .collection('presentations')
+      .orderBy('time')
+      .getDocuments();
+    List<Map> docs = [];
+    for (var doc in collection.documents) {
+      try {
+        String url = doc['speaker']['image'];
+        var imageURL = await _cloudStorage.ref().child(url).getDownloadURL();
+        docs.add({
+          ...doc.data,
+          'id': doc.documentID,
+          'image': imageURL
+        });
+      } 
+      catch (err) {
+        print(err);
       }
-      setState(() {
-        showSpinner = false;
-        presentations = docs;
-      });
-    } else {
-      showSpinner = false;
     }
+    setState(() {
+      showSpinner = false;
+      presentations = docs;
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -73,7 +74,7 @@ class _PresentationsScreenState extends State<PresentationsScreen> {
               subtitle: Text(convertStamp(presentation['time']).toString()),
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => PresentationScreen(data: presentation),
+                  builder: (context) => PresentationDetailScreen(data: presentation),
                 ));
               },
             ),

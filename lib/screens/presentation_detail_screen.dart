@@ -3,10 +3,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rw_symposium_flutter/components/layout.dart';
 import 'package:rw_symposium_flutter/utils/helpers.dart';
 
-class PresentationScreen extends StatelessWidget {
+class PresentationDetailScreen extends StatelessWidget {
   final data;
 
-  PresentationScreen({this.data});
+  PresentationDetailScreen({@required this.data});
 
   @override
   Widget build(BuildContext context) {
