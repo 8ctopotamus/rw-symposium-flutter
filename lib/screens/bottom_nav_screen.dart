@@ -55,6 +55,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: null,
+        backgroundColor: Colors.teal,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.close),

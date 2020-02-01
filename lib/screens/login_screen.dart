@@ -24,7 +24,13 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: Colors.white,
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
-        child: Padding(
+          child: Container(
+            decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("images/background.jpg"),
+              fit: BoxFit.cover,
+            ),
+          ),
           padding: EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -39,6 +45,16 @@ class _LoginScreenState extends State<LoginScreen> {
 //                  ),
 //                ),
 //              ),
+              Center(
+                child: Text(
+                'Log in',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 41.0,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ),
               SizedBox(
                 height: 48.0,
               ),
@@ -69,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 24.0,
               ),
               RoundedButton(
-                color: Colors.lightBlueAccent,
+                color: Colors.teal,
                 text: 'Log In',
                 onPressed: () async {
                   setState(() {

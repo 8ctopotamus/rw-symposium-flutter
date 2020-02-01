@@ -23,7 +23,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       backgroundColor: Colors.white,
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
-        child: Padding(
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("images/background.jpg"),
+              fit: BoxFit.cover,
+            ),
+          ),
           padding: EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -38,6 +44,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 //                  ),
 //                ),
 //              ),
+              Center(
+                child: Text(
+                'Register',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 41.0,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ),
               SizedBox(
                 height: 48.0,
               ),

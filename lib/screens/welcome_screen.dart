@@ -15,46 +15,72 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Padding(
+      // backgroundColor: Colors.white,
+      body: Container(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("images/background.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Column(
               children: <Widget>[
-                Hero(
-                  tag: 'logo',
-                  child: Container(
-                    child: SvgPicture.asset(
-                      'images/logo.svg',
-                      semanticsLabel: 'Acme Logo',
-                      width: 700,
-                    ),
+                // Flexible(
+                //     tag: 'logo',
+                //     child: Container(
+                //       child: 
+                //     ),
+                //   ),
+                // ),
+
+                SvgPicture.asset(
+                  'images/logo.svg',
+                  semanticsLabel: 'RW Symposium Logo',
+                  width: 262,
+                ),
+                Text(
+                  'REAL WEALTH',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 41.0,
+                    fontWeight: FontWeight.w900,
                   ),
                 ),
-//                Text(
-//                  'RW Symposium',
-//                  style: TextStyle(
-//                    fontSize: 45.0,
-//                    fontWeight: FontWeight.w900,
-//                  ),
-//                ),
+                Text(
+                  'SYMPOSIUM',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 45.0,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+                Text(
+                  DateTime.now().year.toString(),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 118.0,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
               ],
             ),
             SizedBox(
               height: 48.0,
             ),
             RoundedButton(
-              color: Colors.lightBlueAccent,
+              color: Colors.teal,
               text: 'Log In',
               onPressed: () {
                 Navigator.pushNamed(context, LoginScreen.id);
               },
             ),
             RoundedButton(
-              color: Colors.blueAccent,
+              color: Colors.teal,
               text: 'Register',
               onPressed: () {
                 Navigator.pushNamed(context, RegistrationScreen.id);

@@ -23,7 +23,8 @@ class _UserListState extends State<UserList> {
   void getUsers() async {
     final collection = await _firestore
       .collection('users')
-      .limit(20)
+      .orderBy('username')
+      // .limit(20)
       .getDocuments();
     if (this.mounted) {
       setState(() {
@@ -48,13 +49,19 @@ class _UserListState extends State<UserList> {
           final DocumentSnapshot user = users[idx];
           final List chunks = user['username'].split(new RegExp('\\s+'));
           final String initials = chunks[0][0] + chunks[1][0];
+          final dynamic designation = user['designation'] != '' 
+            ? Text(user['designation']) 
+            : null;
+          // final avatar = user['avatar']
+          //   ? user['avatar'] 
+          //   : null;
           return Card(
             child: ListTile(
               leading: CircleAvatar(
                 child: Text(initials),
               ),
               title: Text(user['username']),
-              subtitle: user['designation'] != '' ? Text(user['designation']) : null,
+              subtitle: designation,
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) => UserDetailScreen(data: user),
