@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rw_symposium_flutter/utils/helpers.dart';
 import 'package:rw_symposium_flutter/components/presentation_questions_list.dart';
+import 'package:rw_symposium_flutter/components/reviews_list.dart';
 
 class PresentationDetailScreen extends StatelessWidget {
   final data;
@@ -47,7 +48,7 @@ class PresentationDetailScreen extends StatelessWidget {
               ),
             ),
             PresentationQuestionsList(presentationID: data['id']),
-            Center(child: Text('Reviews'),),
+            ReviewsList(presentationID: data['id']),
           ],
         ),
       ),

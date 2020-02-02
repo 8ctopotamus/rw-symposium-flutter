@@ -4,22 +4,19 @@ import 'package:timeago/timeago.dart' as timeago;
 
 final _firestore = Firestore.instance;
 
-class PresentationQuestionsList extends StatefulWidget {
+class ReviewsList extends StatefulWidget {
   final presentationID;
-  
-  PresentationQuestionsList({@required this.presentationID});
-  
+  ReviewsList({@required this.presentationID});  
   @override
-  _PresentationQuestionsListState createState() => _PresentationQuestionsListState();
+  _ReviewsListState createState() => _ReviewsListState();
 }
 
-class _PresentationQuestionsListState extends State<PresentationQuestionsList> {
+class _ReviewsListState extends State<ReviewsList> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: _firestore
-        .collection('presentations/${widget.presentationID}/questions')
-        .orderBy('upvotesCount')
+        .collection('presentations/${widget.presentationID}/reviews')
         .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
@@ -31,43 +28,52 @@ class _PresentationQuestionsListState extends State<PresentationQuestionsList> {
         }
         if (snapshot.data.documents.length == 0) {
           return Center(
-            child: Text('Be the first to ask a question.'),
+            child: Text('Be the first to leave a review.'),
           );
         }
         final questions = snapshot.data.documents.reversed;
-        List<QuestionCard> questionCards = [];
+        List<RatingCard> ratingCards = [];
         for (var q in questions) {
-          questionCards.add(QuestionCard(data: q));
+          ratingCards.add(RatingCard(data: q));
         }
         return ListView(
           padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-          children: questionCards,
+          children: ratingCards,
         );
       },
     );
   }
 }
 
-class QuestionCard extends StatelessWidget {
+class RatingCard extends StatelessWidget {
   final data;
 
-  QuestionCard({@required this.data});
+  RatingCard({@required this.data});
 
   @override
   Widget build(BuildContext context) {
     final createdAt = DateTime.fromMillisecondsSinceEpoch(data['createdAt']); 
     final timeAgo = timeago.format(createdAt);
-
-    return Card( child: ListTile(
-        title: Text(data['question']),
-        subtitle: Text('Asked by ${data['user']['username']} $timeAgo'),
-        trailing: Column(
+    List<Icon> stars = [];
+    for (int i = 0; i < data['rating']; i++) {
+      stars.add(Icon(Icons.star));
+    }
+    return Card(
+      child: Padding(
+        padding: EdgeInsets.all(10.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Icon(Icons.arrow_upward),
-            Text('${data['upvotes'].length.toString()} Upvotes'),
+            Row( children: stars, ),
+            Text('Stars: ${data['rating'].toString()}/5'),
+            Text('Best thing I learned:'),
+            Text(data['bestThingLearnedText']),
+            Text('Best thing I learned:'),
+            Text(data['selfImprovmeentText']),            
+            Text('${data['user']['username']}, $timeAgo'),
           ],
         ),
-      ), 
+      ),
     );
   }
 }

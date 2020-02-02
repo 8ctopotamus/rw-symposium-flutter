@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:rw_symposium_flutter/screens/user_detail_screen.dart';
+import 'package:rw_symposium_flutter/components/avatar.dart';
 
 final _firestore = Firestore.instance;
 
@@ -47,18 +48,17 @@ class _UserListState extends State<UserList> {
         itemCount: users.length,
         itemBuilder: (BuildContext context, int idx) {
           final DocumentSnapshot user = users[idx];
-          final List chunks = user['username'].split(new RegExp('\\s+'));
-          final String initials = chunks[0][0] + chunks[1][0];
           final dynamic designation = user['designation'] != '' 
             ? Text(user['designation']) 
             : null;
-          // final avatar = user['avatar']
-          //   ? user['avatar'] 
-          //   : null;
+          final avatar = user['avatar'] == false 
+            ? null 
+            : user['avatar'];
           return Card(
             child: ListTile(
-              leading: CircleAvatar(
-                child: Text(initials),
+              leading: AppAvatar(
+                name: user['username'],
+                image: avatar,
               ),
               title: Text(user['username']),
               subtitle: designation,

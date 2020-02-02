@@ -18,7 +18,10 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
   final _auth = FirebaseAuth.instance;
 
   int _selectedIndex = 0;
-  static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const TextStyle optionStyle = TextStyle(
+    fontSize: 30,
+    fontWeight: FontWeight.bold,
+  );
   final _widgetOptions = <Widget>[
     PresentationsScreen(),
     Feed(),
@@ -54,7 +57,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: null,
+        leading: Container(),
         backgroundColor: Colors.teal,
         actions: <Widget>[
           IconButton(
@@ -79,12 +82,12 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
             title: Text('Feed'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.watch),
+            icon: Icon(Icons.people),
             title: Text('People'),
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Colors.teal,
         onTap: _onItemTapped,
       ),
     );
