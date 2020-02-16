@@ -23,6 +23,8 @@ class _PresentationsScreenState extends State<PresentationsScreen> {
   void initState() {
     super.initState();
     getPresentations();
+
+    
   }
 
   void getPresentations () async {
@@ -73,7 +75,7 @@ class _PresentationsScreenState extends State<PresentationsScreen> {
                 child: Image.network(presentation['image']),
               ),
               title: Text(presentation['title']),
-              subtitle: Text(convertStamp(presentation['time']).toString()),
+              subtitle: Text(niceDate(presentation['time'])),
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) => PresentationDetailScreen(data: presentation),

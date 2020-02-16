@@ -3,7 +3,7 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:rw_symposium_flutter/constants.dart';
 import 'package:rw_symposium_flutter/components/rounded_button';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:rw_symposium_flutter/screens/bottom_nav_screen.dart';
+import 'package:rw_symposium_flutter/screens/event_screen.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static const String id = 'registration_screen';
@@ -20,30 +20,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: RWColors.darkBlue,
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
         child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("images/background.jpg"),
-              fit: BoxFit.cover,
-            ),
-          ),
           padding: EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-//              Flexible(
-//                child: Hero(
-//                  tag: 'logo',
-//                  child: Container(
-//                    height: 200.0,
-//                    child: Image.asset('images/logo.png'),
-//                  ),
-//                ),
-//              ),
               Center(
                 child: Text(
                 'Register',
@@ -84,7 +69,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 height: 24.0,
               ),
               RoundedButton(
-                color: Colors.blueAccent,
+                color: RWColors.turquise,
                 text: 'Register',
                 onPressed: () async {
                   setState(() {
@@ -93,7 +78,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   try {
                     final newUser = await _auth.createUserWithEmailAndPassword(email: email.trim(), password: password.trim());
                     if (newUser != null) {
-                      Navigator.pushNamed(context, BottomNavScreen.id);
+                      Navigator.pushNamed(context, EventScreen.id);
                     }
                     setState(() {
                       showSpinner = false;

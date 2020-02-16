@@ -56,9 +56,12 @@ class _UserListState extends State<UserList> {
             : user['avatar'];
           return Card(
             child: ListTile(
-              leading: AppAvatar(
-                name: user['username'],
-                image: avatar,
+              leading: Hero(
+                tag: 'user-${user['email']}',
+                child: AppAvatar(
+                  name: user['username'],
+                  image: avatar,
+                ),
               ),
               title: Text(user['username']),
               subtitle: designation,

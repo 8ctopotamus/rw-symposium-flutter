@@ -46,10 +46,8 @@ class _ReviewsListState extends State<ReviewsList> {
 }
 
 class RatingCard extends StatelessWidget {
-  final data;
-
   RatingCard({@required this.data});
-
+  final data;
   @override
   Widget build(BuildContext context) {
     final createdAt = DateTime.fromMillisecondsSinceEpoch(data['createdAt']); 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:timeago/timeago.dart' as timeago;
+import 'package:rw_symposium_flutter/components/avatar.dart';
 
 final _firestore = Firestore.instance;
 
@@ -10,49 +11,77 @@ class Feed extends StatefulWidget {
 }
 
 class _FeedState extends State<Feed> {
-  List posts = [];
-  bool showSpinner = true;
-
-  @override
-  void initState() {
-    super.initState();
-    getUsers();
-  }
-
-  void getUsers() async {
-    final collection = await _firestore
-      .collection('feed')
-      .limit(20)
-      .getDocuments();
-    if (this.mounted) {
-      setState(() {
-        posts = collection.documents;
-        showSpinner = false;
-      });
-    }
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return ModalProgressHUD(
-      inAsyncCall: showSpinner,
-      child: ListView.builder(
-        itemCount: posts.length,
-        itemBuilder: (BuildContext context, int idx) {
-          final post = posts[idx];
-          return Card(
-            child: ListTile(
-              title: Text(post['text']),
-              onTap: null,
+    return StreamBuilder(
+      stream: _firestore
+        .collection('feed')
+        .orderBy('createdAt')
+        .limit(20)
+        .snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Center(
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.lightBlue,
             ),
           );
-        },
+        }
+        if (snapshot.data.documents.length == 0) {
+          return Center(
+            child: Text('Be the first to post.'),
+          );
+        }
+        final questions = snapshot.data.documents.reversed;
+        List<PostCard> postCards = [];
+        for (var q in questions) {
+          postCards.add(PostCard(data: q));
+        }
+        return ListView(
+          padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+          children: postCards,
+        );
+      },
+    );
+  }
+}
+
+class PostCard extends StatelessWidget {
+  PostCard({@required this.data});
+  final data;
+  @override
+  Widget build(BuildContext context) {
+    final createdAt = DateTime.fromMillisecondsSinceEpoch(data['createdAt']); 
+    final timeAgo = timeago.format(createdAt);
+    List<Widget> cardWidgets = [
+      Row(
+        children: <Widget>[
+          AppAvatar(
+            name: data['authorUsername'],
+            // image: data['authorAvatar'] ? data['authorAvatar'] : null,
+          ),
+          Column(
+            children: <Widget>[
+              Text(data['authorUsername']),
+              Text(timeAgo),
+            ],
+          ),
+        ],
       ),
+      Text(data['text']),
+      Text('Likes: ${data['likes'].length}'),
+      Text('Comments'),
+    ];
+    // if (data['image'] != false) {
+    //   cardWidgets.insert(1, Image.network(data['image']));
+    // }
+    return Card(
+      child: Container(
+        padding: EdgeInsets.all(10.0),
+        child: Column(
+          children: cardWidgets,
+        ),
+      )
     );
   }
 }

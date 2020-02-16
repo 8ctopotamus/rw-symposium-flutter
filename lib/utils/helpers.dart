@@ -1,4 +1,5 @@
 // import 'dart:io' show Platform;
+import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 DateTime convertStamp(Timestamp _stamp) {
@@ -14,4 +15,10 @@ DateTime convertStamp(Timestamp _stamp) {
   } else {
     return null;
   }
+}
+
+String niceDate(Timestamp timestamp) {
+  var dateTime = convertStamp(timestamp);
+  String formattedDate = DateFormat('MMMM dd, yyyy – kk:mm').format(dateTime);
+  return formattedDate;
 }

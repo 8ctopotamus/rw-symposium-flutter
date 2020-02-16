@@ -35,7 +35,7 @@ class PresentationDetailScreen extends StatelessWidget {
                     tag: 'speaker-${data['id']}',
                     child: Image.network(data['image']),
                   ),
-                  Text(convertStamp(data['time']).toString()),
+                  Text(niceDate(data['time'])),
                   Text(
                     data['title'],
                     style: TextStyle(

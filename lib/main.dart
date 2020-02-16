@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:rw_symposium_flutter/constants.dart';
 import 'package:rw_symposium_flutter/screens/welcome_screen.dart';
 import 'package:rw_symposium_flutter/screens/login_screen.dart';
 import 'package:rw_symposium_flutter/screens/registration_screen.dart';
-import 'package:rw_symposium_flutter/screens/bottom_nav_screen.dart';
+import 'package:rw_symposium_flutter/screens/event_screen.dart';
 
 void main() => runApp(RWSymposiumApp());
 
@@ -10,12 +11,18 @@ class RWSymposiumApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData.dark().copyWith(
+        backgroundColor: RWColors.darkBlue,
+        primaryColor: RWColors.turquise,
+        cardColor: Color(0xff29427f),
+        scaffoldBackgroundColor: RWColors.darkBlue,
+      ),
       initialRoute: WelcomeScreen.id,
       routes: {
         WelcomeScreen.id: (context) => WelcomeScreen(),
         LoginScreen.id: (context) => LoginScreen(),
         RegistrationScreen.id: (context) => RegistrationScreen(),
-        BottomNavScreen.id: (context) => BottomNavScreen(),
+        EventScreen.id: (context) => EventScreen(),
       }
     );
   }

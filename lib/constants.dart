@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 
+class RWColors {
+  static const Color darkBlue = Color(0xff1e305d);
+  static const Color turquise = Color(0xff0885a2);
+  static const Color green = Color(0xff2a676a);
+  static const Color greenLight = Color(0xff44b8ba);
+  static const Color red = Color(0xfff15d5e);
+}
+
 const kSendButtonTextStyle = TextStyle(
   color: Colors.tealAccent,
   fontWeight: FontWeight.bold,
@@ -20,7 +28,7 @@ const kMessageContainerDecoration = BoxDecoration(
 
 const kInputDecorationStyle = InputDecoration(
   filled: true,
-  fillColor: Colors.white,
+  // fillColor: Colors.white,
   hintText: 'Enter a value',
   contentPadding:
   EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
@@ -28,11 +36,11 @@ const kInputDecorationStyle = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
   enabledBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.tealAccent, width: 1.0),
+    borderSide: BorderSide(color: RWColors.turquise, width: 1.0),
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
   focusedBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
+    borderSide: BorderSide(color: RWColors.greenLight, width: 2.0),
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
 );

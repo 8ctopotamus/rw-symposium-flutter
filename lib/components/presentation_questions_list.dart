@@ -49,22 +49,27 @@ class _PresentationQuestionsListState extends State<PresentationQuestionsList> {
 }
 
 class QuestionCard extends StatelessWidget {
-  final data;
-
   QuestionCard({@required this.data});
-
+  final data;
   @override
   Widget build(BuildContext context) {
     final createdAt = DateTime.fromMillisecondsSinceEpoch(data['createdAt']); 
     final timeAgo = timeago.format(createdAt);
-
-    return Card( child: ListTile(
+    return Card(
+      child: ListTile(
         title: Text(data['question']),
         subtitle: Text('Asked by ${data['user']['username']} $timeAgo'),
         trailing: Column(
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Icon(Icons.arrow_upward),
-            Text('${data['upvotes'].length.toString()} Upvotes'),
+            IconButton(
+              icon: Icon(Icons.arrow_upward),
+              tooltip: 'Upvote this question',
+              onPressed: () {
+                print('Upvoting question...');
+              },
+            ),
+            // Text('${data['upvotes'].length.toString()} Upvotes'),
           ],
         ),
       ), 

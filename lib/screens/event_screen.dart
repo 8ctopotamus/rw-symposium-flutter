@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:rw_symposium_flutter/constants.dart';
 import 'package:rw_symposium_flutter/screens/welcome_screen.dart';
 import 'package:rw_symposium_flutter/components/feed.dart';
 import 'package:rw_symposium_flutter/components/presentations_list.dart';
@@ -7,14 +8,14 @@ import 'package:rw_symposium_flutter/components/user_list.dart';
 
 FirebaseUser loggedInUser;
 
-class BottomNavScreen extends StatefulWidget {
-  static String id = 'bottom_nav_screen';
+class EventScreen extends StatefulWidget {
+  static String id = 'event_screen';
 
   @override
-  _BottomNavScreenState createState() => _BottomNavScreenState();
+  _EventScreenState createState() => _EventScreenState();
 }
 
-class _BottomNavScreenState extends State<BottomNavScreen> {
+class _EventScreenState extends State<EventScreen> {
   final _auth = FirebaseAuth.instance;
 
   int _selectedIndex = 0;
@@ -58,7 +59,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: Container(),
-        backgroundColor: Colors.teal,
+        backgroundColor: RWColors.greenLight,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.close),
@@ -89,6 +90,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.teal,
         onTap: _onItemTapped,
+        backgroundColor: RWColors.darkBlue,
       ),
     );
   }

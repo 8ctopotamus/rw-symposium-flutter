@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rw_symposium_flutter/components/layout.dart';
+import 'package:rw_symposium_flutter/components/avatar.dart';
 
 class UserDetailScreen extends StatelessWidget {
   final data;
@@ -8,10 +9,20 @@ class UserDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext content) {
+    final avatar = data['avatar'] == false 
+            ? null 
+            : data['avatar'];
     return Layout(
       title: data['username'],
       child: Column(
         children: <Widget>[
+          Hero(
+            tag: 'user-${data['email']}',
+            child: AppAvatar(
+              name: data['username'],
+              image: avatar,
+            ),
+          ),
           Text(data['username']),
           Text(data['designation']),
           Text(data['avatar'].toString()),

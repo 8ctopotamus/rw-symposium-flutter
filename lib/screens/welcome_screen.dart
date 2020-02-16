@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rw_symposium_flutter/screens/login_screen.dart';
 import 'package:rw_symposium_flutter/screens/registration_screen.dart';
 import 'package:rw_symposium_flutter/components/rounded_button';
+import 'package:rw_symposium_flutter/constants.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static const String id = 'welcome_screen';
@@ -15,49 +16,25 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.white,
+      backgroundColor: RWColors.darkBlue,
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("images/background.jpg"),
-            fit: BoxFit.cover,
-          ),
-        ),
+        // decoration: BoxDecoration(
+        //   image: DecorationImage(
+        //     image: AssetImage("images/background.jpg"),
+        //     fit: BoxFit.cover,
+        //   ),
+        // ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Column(
               children: <Widget>[
-                // Flexible(
-                //     tag: 'logo',
-                //     child: Container(
-                //       child: 
-                //     ),
-                //   ),
-                // ),
-
                 SvgPicture.asset(
                   'images/logo.svg',
-                  semanticsLabel: 'RW Symposium Logo',
-                  width: 262,
-                ),
-                Text(
-                  'REAL WEALTH',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 41.0,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-                Text(
-                  'SYMPOSIUM',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 45.0,
-                    fontWeight: FontWeight.w900,
-                  ),
+                  semanticsLabel: 'RealWealth Advisor Symposium',
+                  width: 300,
                 ),
                 Text(
                   DateTime.now().year.toString(),
@@ -73,14 +50,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
               height: 48.0,
             ),
             RoundedButton(
-              color: Colors.teal,
+              color: RWColors.greenLight,
               text: 'Log In',
               onPressed: () {
                 Navigator.pushNamed(context, LoginScreen.id);
               },
             ),
             RoundedButton(
-              color: Colors.teal,
+              color: RWColors.turquise,
               text: 'Register',
               onPressed: () {
                 Navigator.pushNamed(context, RegistrationScreen.id);
