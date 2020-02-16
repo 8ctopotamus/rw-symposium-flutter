@@ -15,7 +15,6 @@ class PresentationDetailScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(data['title']),
-          backgroundColor: Colors.teal,
           bottom: TabBar(
             indicatorColor: Colors.white,
             tabs: [

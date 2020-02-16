@@ -10,8 +10,8 @@ class UserDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext content) {
     final avatar = data['avatar'] == false 
-            ? null 
-            : data['avatar'];
+      ? null 
+      : data['avatar'];
     return Layout(
       title: data['username'],
       child: Column(

@@ -12,10 +12,13 @@ class RWSymposiumApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
-        backgroundColor: RWColors.darkBlue,
         primaryColor: RWColors.turquise,
-        cardColor: Color(0xff29427f),
+        backgroundColor: RWColors.darkBlue,
         scaffoldBackgroundColor: RWColors.darkBlue,
+        cardColor: Color(0xff29427f),
+        appBarTheme: AppBarTheme(
+          color: RWColors.green,
+        ),
       ),
       initialRoute: WelcomeScreen.id,
       routes: {

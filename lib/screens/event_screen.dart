@@ -16,6 +16,8 @@ class EventScreen extends StatefulWidget {
 }
 
 class _EventScreenState extends State<EventScreen> {
+  GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
+
   final _auth = FirebaseAuth.instance;
 
   int _selectedIndex = 0;
@@ -57,15 +59,14 @@ class _EventScreenState extends State<EventScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         leading: Container(),
-        backgroundColor: RWColors.greenLight,
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.close),
+            icon: Icon(Icons.menu),
             onPressed: () {
-              _auth.signOut();
-              Navigator.pop(context);
+              _scaffoldKey.currentState.openDrawer();
             },
           ),
         ],
@@ -88,9 +89,41 @@ class _EventScreenState extends State<EventScreen> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.teal,
+        selectedItemColor: RWColors.greenLight,
         onTap: _onItemTapped,
         backgroundColor: RWColors.darkBlue,
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            SizedBox(
+              height: 30,
+            ),
+            ListTile(
+              title: Text('Profile'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+              leading: Icon(Icons.person_outline),
+            ),
+            ListTile(
+              title: Text('Settings'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+              leading: Icon(Icons.settings),
+            ),
+            ListTile(
+              title: Text('Log out'),
+              onTap: () {
+                _auth.signOut();
+                Navigator.popAndPushNamed(context, WelcomeScreen.id);
+              },
+              leading: Icon(Icons.close),
+            ),
+          ],
+        ),
       ),
     );
   }
