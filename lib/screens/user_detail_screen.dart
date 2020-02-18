@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rw_symposium_flutter/components/layout.dart';
 import 'package:rw_symposium_flutter/components/avatar.dart';
 
+
 class UserDetailScreen extends StatelessWidget {
   final data;
 
@@ -15,12 +16,15 @@ class UserDetailScreen extends StatelessWidget {
     return Layout(
       title: data['username'],
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Hero(
             tag: 'user-${data['email']}',
             child: AppAvatar(
               name: data['username'],
               image: avatar,
+              radius: 100.0,
+              fontSize: 80.0,
             ),
           ),
           Text(data['username']),

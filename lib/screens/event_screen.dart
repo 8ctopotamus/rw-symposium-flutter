@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rw_symposium_flutter/constants.dart';
 import 'package:rw_symposium_flutter/screens/welcome_screen.dart';
+import 'package:rw_symposium_flutter/screens/about_screen.dart';
 import 'package:rw_symposium_flutter/components/feed.dart';
 import 'package:rw_symposium_flutter/components/presentations_list.dart';
 import 'package:rw_symposium_flutter/components/user_list.dart';
@@ -77,7 +78,7 @@ class _EventScreenState extends State<EventScreen> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.mic),
-            title: Text('Talks'),
+            title: Text('Program'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.rss_feed),
@@ -113,6 +114,13 @@ class _EventScreenState extends State<EventScreen> {
                 Navigator.pop(context);
               },
               leading: Icon(Icons.settings),
+            ),
+            ListTile(
+              title: Text('About'),
+              onTap: () {
+                Navigator.popAndPushNamed(context, AboutScreen.id);
+              },
+              leading: Icon(Icons.info_outline),
             ),
             ListTile(
               title: Text('Log out'),

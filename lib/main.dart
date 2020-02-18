@@ -4,6 +4,7 @@ import 'package:rw_symposium_flutter/screens/welcome_screen.dart';
 import 'package:rw_symposium_flutter/screens/login_screen.dart';
 import 'package:rw_symposium_flutter/screens/registration_screen.dart';
 import 'package:rw_symposium_flutter/screens/event_screen.dart';
+import 'package:rw_symposium_flutter/screens/about_screen.dart';
 
 void main() => runApp(RWSymposiumApp());
 
@@ -26,6 +27,7 @@ class RWSymposiumApp extends StatelessWidget {
         LoginScreen.id: (context) => LoginScreen(),
         RegistrationScreen.id: (context) => RegistrationScreen(),
         EventScreen.id: (context) => EventScreen(),
+        AboutScreen.id: (context) => AboutScreen(),
       }
     );
   }

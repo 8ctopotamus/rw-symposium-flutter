@@ -30,15 +30,6 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-//              Flexible(
-//                child: Hero(
-//                  tag: 'logo',
-//                  child: Container(
-//                    height: 200.0,
-//                    child: Image.asset('images/logo.png'),
-//                  ),
-//                ),
-//              ),
             Center(
               child: Text(
               'Log in',
@@ -59,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 email = value;
               },
               decoration: kInputDecorationStyle.copyWith(
-                  hintText: 'Enter your email'
+                hintText: 'Enter your email'
               ),
             ),
             SizedBox(

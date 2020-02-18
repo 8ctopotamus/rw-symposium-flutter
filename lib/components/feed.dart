@@ -13,6 +13,7 @@ class Feed extends StatefulWidget {
 class _FeedState extends State<Feed> {
   @override
   Widget build(BuildContext context) {
+    // use #RWAS2020 and tag @RealWealthMKTG when you share to FB, LI, TW
     return StreamBuilder(
       stream: _firestore
         .collection('feed')

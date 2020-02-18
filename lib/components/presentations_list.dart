@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:rw_symposium_flutter/screens/presentation_detail_screen.dart';
+import 'package:rw_symposium_flutter/screens/presentation_screen.dart';
 import 'package:rw_symposium_flutter/utils/helpers.dart';
 
 final _firestore = Firestore.instance;
@@ -78,7 +78,7 @@ class _PresentationsScreenState extends State<PresentationsScreen> {
               subtitle: Text(niceDate(presentation['time'])),
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => PresentationDetailScreen(data: presentation),
+                  builder: (context) => PresentationScreen(data: presentation),
                 ));
               },
             ),
