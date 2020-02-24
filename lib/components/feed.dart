@@ -54,13 +54,18 @@ class PostCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final createdAt = DateTime.fromMillisecondsSinceEpoch(data['createdAt']); 
     final timeAgo = timeago.format(createdAt);
+
+    if (data['image'] != null) {
+      print(data['image']);
+    }
+
     List<Widget> cardWidgets = [
       Row(
         children: <Widget>[
-          AppAvatar(
-            name: data['authorUsername'],
+          // AppAvatar(
+            // name: data['authorUsername'],
             // image: data['authorAvatar'] ? data['authorAvatar'] : null,
-          ),
+          // ),
           Column(
             children: <Widget>[
               Text(data['authorUsername']),

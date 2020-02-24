@@ -25,7 +25,7 @@ class _UserListState extends State<UserList> {
     final collection = await _firestore
       .collection('users')
       .orderBy('username')
-      // .limit(20)
+      .limit(20)
       .getDocuments();
     if (this.mounted) {
       setState(() {

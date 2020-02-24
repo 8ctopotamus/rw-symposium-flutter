@@ -8,6 +8,15 @@ class RWColors {
   static const Color red = Color(0xfff15d5e);
 }
 
+const TextStyle headingStyle = TextStyle(
+  fontSize: 28.0,
+);
+
+const TextStyle bodyTextStyle = TextStyle(
+  height: 1.5,
+  fontSize: 16.0,
+);
+
 const kSendButtonTextStyle = TextStyle(
   color: Colors.tealAccent,
   fontWeight: FontWeight.bold,

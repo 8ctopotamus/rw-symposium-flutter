@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:rw_symposium_flutter/constants.dart';
 
 final _firestore = Firestore.instance;
 
@@ -52,23 +53,26 @@ class RatingCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final createdAt = DateTime.fromMillisecondsSinceEpoch(data['createdAt']); 
     final timeAgo = timeago.format(createdAt);
-    List<Icon> stars = [];
+    List<Widget> stars = [];
     for (int i = 0; i < data['rating']; i++) {
-      stars.add(Icon(Icons.star));
+      stars.add(Icon(Icons.star, color: Colors.yellow,));
     }
+    stars.add(Text('${data['rating'].toString()}/5'));
     return Card(
       child: Padding(
         padding: EdgeInsets.all(10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Row( children: stars, ),
-            Text('Stars: ${data['rating'].toString()}/5'),
-            Text('Best thing I learned:'),
-            Text(data['bestThingLearnedText']),
-            Text('Best thing I learned:'),
-            Text(data['selfImprovmeentText']),            
             Text('${data['user']['username']}, $timeAgo'),
+            SizedBox(height: 10.0,),
+            Row( children: stars, ),
+            SizedBox(height: 10.0,),
+            Text('Best thing I learned:'),
+            Text(data['bestThingLearnedText'], style: bodyTextStyle,),
+            SizedBox(height: 10.0,),
+            Text('Best thing I learned:'),
+            Text(data['selfImprovmeentText'], style: bodyTextStyle,),
           ],
         ),
       ),
