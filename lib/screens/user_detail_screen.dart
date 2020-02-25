@@ -131,6 +131,7 @@ class UserDetailScreen extends StatelessWidget {
             child: Text(
               data['bio'],
               textAlign: TextAlign.center,
+              softWrap: true,
             ),
           )
         ],

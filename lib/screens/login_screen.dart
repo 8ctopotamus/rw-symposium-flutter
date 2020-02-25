@@ -1,10 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:rw_symposium_flutter/constants.dart';
 import 'package:rw_symposium_flutter/components/rounded_button';
 import 'package:rw_symposium_flutter/screens/event_screen.dart';
 import 'package:rw_symposium_flutter/screens/welcome_screen.dart';
+import 'package:rw_symposium_flutter/constants.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'login_screen';

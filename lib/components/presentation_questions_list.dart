@@ -19,7 +19,7 @@ class _PresentationQuestionsListState extends State<PresentationQuestionsList> {
     return StreamBuilder(
       stream: _firestore
         .collection('presentations/${widget.presentationID}/questions')
-        .orderBy('upvotesCount')
+        // .orderBy('upvotesCount')
         .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
@@ -35,9 +35,11 @@ class _PresentationQuestionsListState extends State<PresentationQuestionsList> {
           );
         }
         final questions = snapshot.data.documents.reversed;
-        List<QuestionCard> questionCards = [];
+        List<Widget> questionCards = [];
         for (var q in questions) {
-          questionCards.add(QuestionCard(data: q));
+          print(q['question']);
+          questionCards.add(Text(q['question'].toString()));
+          // questionCards.add(QuestionCard(data: q));
         }
         return ListView(
           padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
@@ -69,7 +71,7 @@ class QuestionCard extends StatelessWidget {
                 print('Upvoting question...');
               },
             ),
-            // Text('${data['upvotes'].length.toString()} Upvotes'),
+            // Text('${data['upvotes'].length.toString()}'),
           ],
         ),
       ), 

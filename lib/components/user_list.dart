@@ -54,6 +54,8 @@ class _UserListState extends State<UserList> {
           final avatar = user['avatar'] == false 
             ? null 
             : user['avatar'];
+
+          print(user['username']);
           return Card(
             child: ListTile(
               leading: Hero(

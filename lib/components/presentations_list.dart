@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:transparent_image/transparent_image.dart';
 import 'package:rw_symposium_flutter/screens/presentation_screen.dart';
 import 'package:rw_symposium_flutter/utils/helpers.dart';
 
@@ -23,8 +24,6 @@ class _PresentationsScreenState extends State<PresentationsScreen> {
   void initState() {
     super.initState();
     getPresentations();
-
-    
   }
 
   void getPresentations () async {
@@ -72,7 +71,10 @@ class _PresentationsScreenState extends State<PresentationsScreen> {
             child: ListTile(
               leading: Hero(
                 tag: 'speaker-${presentation['id']}',
-                child: Image.network(presentation['image']),
+                child: FadeInImage.memoryNetwork(
+                  placeholder: kTransparentImage,
+                  image: presentation['image']
+                ),
               ),
               title: Text(presentation['title']),
               subtitle: Text(niceDate(presentation['time'])),

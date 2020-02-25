@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rw_symposium_flutter/constants.dart';
 import 'package:rw_symposium_flutter/screens/welcome_screen.dart';
@@ -6,6 +7,7 @@ import 'package:rw_symposium_flutter/screens/about_screen.dart';
 import 'package:rw_symposium_flutter/components/feed.dart';
 import 'package:rw_symposium_flutter/components/presentations_list.dart';
 import 'package:rw_symposium_flutter/components/user_list.dart';
+import 'package:rw_symposium_flutter/models/current_user.dart';
 
 FirebaseUser loggedInUser;
 
@@ -49,6 +51,7 @@ class _EventScreenState extends State<EventScreen> {
       final user = await _auth.currentUser();
       if (user != null) {
         loggedInUser = user;
+        Provider.of<CurrentUser>(context, listen: false).setUser(user);
       }
     }
     catch(err) {
@@ -126,6 +129,7 @@ class _EventScreenState extends State<EventScreen> {
               title: Text('Log out'),
               onTap: () {
                 _auth.signOut();
+                Provider.of<CurrentUser>(context, listen: false).setUser(null);
                 Navigator.popAndPushNamed(context, WelcomeScreen.id);
               },
               leading: Icon(Icons.close),

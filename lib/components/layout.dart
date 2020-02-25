@@ -1,3 +1,5 @@
+// a scaffold that provides current user info to it's children
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -6,8 +8,10 @@ FirebaseUser loggedInUser;
 class Layout extends StatefulWidget {
   final String title;
   final Widget child;
+  final Widget floatingActionButton;
+  final Widget leading;
 
-  Layout({this.title, this.child});
+  Layout({this.title, this.child, this.floatingActionButton, this.leading});
 
   @override
   _LayoutState createState() => _LayoutState();
@@ -38,7 +42,7 @@ class _LayoutState extends State<Layout> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: null,
+        leading: widget.leading,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.close),
@@ -53,6 +57,7 @@ class _LayoutState extends State<Layout> {
       body: SafeArea(
         child: widget.child,
       ),
+      floatingActionButton: widget.floatingActionButton,
     );
   }
 }
