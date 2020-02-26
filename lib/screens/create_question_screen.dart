@@ -54,21 +54,16 @@ class _CreateQuestionScreenState extends State<CreateQuestionScreen> {
                   showSpinner = true;
                 });
                 final questionsRef = _firestore.collection('presentations/${widget.presentationId}/questions');
-                // print(Provider.of<CurrentUser>(context, listen: false).getUserData.email);
-                // var json = Question(question: question).toJson();
                 try {
                   await questionsRef.add({
-                    'question': 'test question?222',
+                    'question': question,
+                    'createdAt': DateTime.now().toUtc().millisecondsSinceEpoch,
+                    'upvotes': [],
+                    'upvotesCount': 0,
                   });
                 } catch(err) {
                   print('[Firebase error]: $err');
                 }
-                // Firestore.instance.runTransaction((Transaction tx) async {
-                  // DocumentSnapshot postSnapshot = await tx.get(questionsRef);
-                  // if (postSnapshot.exists) {
-                    // await tx.update(questionsRef, <String, dynamic>{'likesCount': postSnapshot.data['likesCount'] + 1});
-                  // }
-                // });
                 setState(() {
                   showSpinner = false;
                 });

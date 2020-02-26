@@ -35,7 +35,10 @@ class _PresentationsScreenState extends State<PresentationsScreen> {
     for (var doc in collection.documents) {
       try {
         String url = doc['speaker']['image'];
-        var imageURL = await _cloudStorage.ref().child(url).getDownloadURL();
+        var imageURL = await _cloudStorage
+          .ref()
+          .child(url)
+          .getDownloadURL();
         docs.add({
           ...doc.data,
           'id': doc.documentID,

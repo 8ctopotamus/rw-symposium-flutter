@@ -60,18 +60,35 @@ class RatingCard extends StatelessWidget {
     stars.add(Text('${data['rating'].toString()}/5'));
     return Card(
       child: Padding(
-        padding: EdgeInsets.all(10.0),
+        padding: EdgeInsets.all(15.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text('${data['user']['username']}, $timeAgo'),
             SizedBox(height: 10.0,),
             Row( children: stars, ),
-            SizedBox(height: 10.0,),
-            Text('Best thing I learned:'),
+            Divider(
+              color: Colors.white,
+              height: 20.0
+            ),
+            Text(
+              'Best thing I learned:',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            // SizedBox(height: 10.0,),
             Text(data['bestThingLearnedText'], style: bodyTextStyle,),
-            SizedBox(height: 10.0,),
-            Text('Best thing I learned:'),
+            Divider(
+              color: Colors.white,
+              height: 20.0
+            ),
+            Text(
+              'Best thing I learned:',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             Text(data['selfImprovmeentText'], style: bodyTextStyle,),
           ],
         ),

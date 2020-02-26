@@ -37,9 +37,8 @@ class _PresentationQuestionsListState extends State<PresentationQuestionsList> {
         final questions = snapshot.data.documents.reversed;
         List<Widget> questionCards = [];
         for (var q in questions) {
-          print(q['question']);
-          questionCards.add(Text(q['question'].toString()));
-          // questionCards.add(QuestionCard(data: q));
+          // questionCards.add(Text(q['question'].toString()));
+          questionCards.add(QuestionCard(data: q));
         }
         return ListView(
           padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
@@ -60,7 +59,7 @@ class QuestionCard extends StatelessWidget {
     return Card(
       child: ListTile(
         title: Text(data['question']),
-        subtitle: Text('Asked by ${data['user']['username']} $timeAgo'),
+        // subtitle: Text('Asked by ${data['user']['username']} $timeAgo'),
         trailing: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
