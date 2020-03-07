@@ -11,14 +11,14 @@ import 'package:rw_symposium_flutter/models/current_user.dart';
 
 FirebaseUser loggedInUser;
 
-class EventScreen extends StatefulWidget {
-  static String id = 'event_screen';
+class HomeScreen extends StatefulWidget {
+  static String id = 'home_screen';
 
   @override
-  _EventScreenState createState() => _EventScreenState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _EventScreenState extends State<EventScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
 
   final _auth = FirebaseAuth.instance;

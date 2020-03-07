@@ -5,7 +5,7 @@ import 'package:rw_symposium_flutter/constants.dart';
 import 'package:rw_symposium_flutter/screens/welcome_screen.dart';
 import 'package:rw_symposium_flutter/screens/login_screen.dart';
 import 'package:rw_symposium_flutter/screens/registration_screen.dart';
-import 'package:rw_symposium_flutter/screens/event_screen.dart';
+import 'package:rw_symposium_flutter/screens/home_screen.dart';
 import 'package:rw_symposium_flutter/screens/about_screen.dart';
 import 'package:rw_symposium_flutter/screens/create_question_screen.dart';
 
@@ -21,7 +21,7 @@ class RWSymposiumApp extends StatelessWidget {
           scaffoldBackgroundColor: RWColors.darkBlue,
           cardColor: Color(0xff29427f),
           appBarTheme: AppBarTheme(
-            color: RWColors.green,
+            color: RWColors.turquise,
           ),
         ),
         initialRoute: WelcomeScreen.id,
@@ -29,7 +29,7 @@ class RWSymposiumApp extends StatelessWidget {
           WelcomeScreen.id: (context) => WelcomeScreen(),
           LoginScreen.id: (context) => LoginScreen(),
           RegistrationScreen.id: (context) => RegistrationScreen(),
-          EventScreen.id: (context) => EventScreen(),
+          HomeScreen.id: (context) => HomeScreen(),
           AboutScreen.id: (context) => AboutScreen(),
           CreateQuestionScreen.id: (context) => CreateQuestionScreen(),
         }
