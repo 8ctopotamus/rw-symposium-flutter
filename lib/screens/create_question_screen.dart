@@ -10,10 +10,10 @@ import 'package:rw_symposium_flutter/models/current_user.dart';
 final _firestore = Firestore.instance;
 
 class CreateQuestionScreen extends StatefulWidget {  
-  CreateQuestionScreen({this.presentationId});
+  CreateQuestionScreen({this.presentationID});
 
   static const String id = 'create_question_screen';
-  final String presentationId;
+  final String presentationID;
 
   _CreateQuestionScreenState createState() => _CreateQuestionScreenState();
 }
@@ -58,7 +58,7 @@ class _CreateQuestionScreenState extends State<CreateQuestionScreen> {
                 final questionsRef = _firestore.collection('questions');
                 try {
                   await questionsRef.add({
-                    'presentationID': widget.presentationId,
+                    'presentationID': widget.presentationID,
                     'question': question,
                     'createdAt': DateTime.now().toUtc().millisecondsSinceEpoch,
                     'authorUsername': user['username'],

@@ -3,6 +3,7 @@ import 'package:rw_symposium_flutter/components/presentation_detail.dart';
 import 'package:rw_symposium_flutter/components/presentation_questions_list.dart';
 import 'package:rw_symposium_flutter/components/reviews_list.dart';
 import 'package:rw_symposium_flutter/screens/create_question_screen.dart';
+import 'package:rw_symposium_flutter/screens/create_review_screen.dart';
 import 'package:rw_symposium_flutter/constants.dart';
 
 class PresentationScreen extends StatefulWidget {
@@ -20,7 +21,6 @@ class _PresentationScreenState extends State<PresentationScreen> {
   Widget build(BuildContext context) {
     final data = widget.data;
     var fab;
-    
     if (_index == 1) {
       fab = FloatingActionButton(
         backgroundColor: RWColors.turquise,
@@ -30,7 +30,7 @@ class _PresentationScreenState extends State<PresentationScreen> {
         ),
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(
-            builder: (context) => CreateQuestionScreen(presentationId: data['id']),
+            builder: (context) => CreateQuestionScreen(presentationID: data['id']),
           ));
         },
       );
@@ -42,7 +42,9 @@ class _PresentationScreenState extends State<PresentationScreen> {
           color: Colors.white,
         ),
         onPressed: () {
-
+          Navigator.push(context, MaterialPageRoute(
+            builder: (context) => CreateReviewScreen(presentationID: data['id']),
+          ));
         },
       );
     }

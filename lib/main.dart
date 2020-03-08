@@ -6,7 +6,8 @@ import 'package:rw_symposium_flutter/screens/login_screen.dart';
 import 'package:rw_symposium_flutter/screens/registration_screen.dart';
 import 'package:rw_symposium_flutter/screens/home_screen.dart';
 import 'package:rw_symposium_flutter/screens/about_screen.dart';
-import 'package:rw_symposium_flutter/screens/create_question_screen.dart';
+// import 'package:rw_symposium_flutter/screens/create_question_screen.dart';
+// import 'package:rw_symposium_flutter/screens/create_question_screen.dart';
 import 'package:rw_symposium_flutter/constants.dart';
 
 void main() => runApp(RWSymposiumApp());
@@ -33,7 +34,7 @@ class RWSymposiumApp extends StatelessWidget {
           RegistrationScreen.id: (context) => RegistrationScreen(),
           HomeScreen.id: (context) => HomeScreen(),
           AboutScreen.id: (context) => AboutScreen(),
-          CreateQuestionScreen.id: (context) => CreateQuestionScreen(),
+          // CreateQuestionScreen.id: (context) => CreateQuestionScreen(),
         }
       ),
     );

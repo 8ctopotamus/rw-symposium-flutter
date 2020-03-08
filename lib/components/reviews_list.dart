@@ -17,7 +17,8 @@ class _ReviewsListState extends State<ReviewsList> {
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: _firestore
-        .collection('presentations/${widget.presentationID}/reviews')
+        .collection('reviews')
+        .where('presentationID', isEqualTo: widget.presentationID)
         .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
@@ -34,8 +35,8 @@ class _ReviewsListState extends State<ReviewsList> {
         }
         final questions = snapshot.data.documents.reversed;
         List<RatingCard> ratingCards = [];
-        for (var q in questions) {
-          ratingCards.add(RatingCard(data: q));
+        for (var r in questions) {
+          ratingCards.add(RatingCard(data: r));
         }
         return ListView(
           padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
@@ -64,7 +65,7 @@ class RatingCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('${data['user']['username']}, $timeAgo'),
+            Text('${data['authorUsername']}, $timeAgo'),
             SizedBox(height: 10.0,),
             Row( children: stars, ),
             Divider(
@@ -78,7 +79,7 @@ class RatingCard extends StatelessWidget {
               ),
             ),
             // SizedBox(height: 10.0,),
-            Text(data['bestThingLearnedText'], style: bodyTextStyle,),
+            Text(data['bestThingLearned'], style: bodyTextStyle,),
             Divider(
               color: Colors.white,
               height: 20.0
@@ -89,7 +90,7 @@ class RatingCard extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(data['selfImprovmeentText'], style: bodyTextStyle,),
+            Text(data['howToImprove'], style: bodyTextStyle,),
           ],
         ),
       ),

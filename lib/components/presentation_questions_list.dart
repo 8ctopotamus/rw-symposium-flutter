@@ -36,10 +36,6 @@ class _PresentationQuestionsListState extends State<PresentationQuestionsList> {
           );
         }
         final questions = snapshot.data.documents;
-        // questions.sort((a, b) {
-        //   return a['upvotesCount'].compareTo(b['upvotesCount']);
-        // });
-
         List<Widget> questionCards = [];
         for (var q in questions) {
           questionCards.add(QuestionCard(data: q));
@@ -74,7 +70,7 @@ class QuestionCard extends StatelessWidget {
           ],
         ),
         title: Text(data['question']),
-        subtitle: Text('Asked by ${data['authorUsername']} $timeAgo'),
+        subtitle: Text('Asked by ${data['authorUsername']}, $timeAgo'),
         trailing: IconButton(
           icon: Icon(Icons.arrow_upward),
           tooltip: 'Upvote this question',
