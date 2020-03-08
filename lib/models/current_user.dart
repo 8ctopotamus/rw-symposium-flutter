@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 final _firestore = Firestore.instance;
 
 class CurrentUser with ChangeNotifier {
@@ -14,11 +15,8 @@ class CurrentUser with ChangeNotifier {
       .collection('users')
       .document(userData.email)
       .get();
-
-
-    print(user['username']);
-
-    // _data = userData;
+    _data = user;
+    print('${user['username']} signed in!');
     notifyListeners();
   }
 }

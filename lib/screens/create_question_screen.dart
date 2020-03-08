@@ -1,4 +1,3 @@
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -25,6 +24,9 @@ class _CreateQuestionScreenState extends State<CreateQuestionScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    final user = Provider.of<CurrentUser>(context, listen: false).getUserData;
+
     return Layout(
       title: 'Ask a question',
       child: ModalProgressHUD(
@@ -53,13 +55,16 @@ class _CreateQuestionScreenState extends State<CreateQuestionScreen> {
                 setState(() {
                   showSpinner = true;
                 });
-                final questionsRef = _firestore.collection('presentations/${widget.presentationId}/questions');
+                final questionsRef = _firestore.collection('questions');
                 try {
                   await questionsRef.add({
                     'question': question,
                     'createdAt': DateTime.now().toUtc().millisecondsSinceEpoch,
-                    'upvotes': [],
+                    'authorUsername': user['username'],
+                    'authorEmail': user['email'],
+                    'presentation': widget.presentationId,
                     'upvotesCount': 0,
+                    'upvotes': [],
                   });
                 } catch(err) {
                   print('[Firebase error]: $err');
@@ -69,7 +74,7 @@ class _CreateQuestionScreenState extends State<CreateQuestionScreen> {
                 });
                 Navigator.pop(context);
               },
-            )            
+            ),
           ],
         ),
       ),

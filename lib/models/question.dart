@@ -1,4 +1,4 @@
-import 'package:meta/meta.dart';
+import 'package:flutter/material.dart';
 
 class Question {
   final String question;
@@ -8,9 +8,4 @@ class Question {
     @required this.question,
     this.upvotes,
   });
-
-  Map<String, dynamic> toJson() =>
-  {
-    'question': question,
-  };
 }

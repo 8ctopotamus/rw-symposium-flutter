@@ -13,7 +13,6 @@ class UserDetailScreen extends StatelessWidget {
     if (!url.contains('//')) {
       url = 'https://$url';
     }
-    print(url);
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -41,39 +40,51 @@ class UserDetailScreen extends StatelessWidget {
           SizedBox(
             height: 40.0,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,children: <Widget>[
-              Expanded(
-                flex: 3,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        data['username'],
-                        textAlign: TextAlign.left,
-                        style: headingStyle,
-                      ),
-                      if (data['designation'] != null && data['designation'] != '')
-                        Text(
-                          data['designation'],
-                          textAlign: TextAlign.left,
-                        ),
-                    ],
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Row(
-                  children: <Widget>[
-                    Icon(Icons.stars),
-                    Text(data['points'].toString())
-                  ],
-                ),
-              ),
-            ],
+
+          Text(
+            data['username'],
+            textAlign: TextAlign.left,
+            style: headingStyle,
           ),
+          if (data['designation'] != null && data['designation'] != '')
+            Text(
+              data['designation'],
+              textAlign: TextAlign.left,
+            ),
+          // includes points
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,children: <Widget>[
+          //     Expanded(
+          //       flex: 3,
+          //       child: Padding(
+          //         padding: EdgeInsets.symmetric(horizontal: 30.0),
+          //         child: Column(
+          //           crossAxisAlignment: CrossAxisAlignment.start,
+          //           children: <Widget>[
+          //             Text(
+          //               data['username'],
+          //               textAlign: TextAlign.left,
+          //               style: headingStyle,
+          //             ),
+          //             if (data['designation'] != null && data['designation'] != '')
+          //               Text(
+          //                 data['designation'],
+          //                 textAlign: TextAlign.left,
+          //               ),
+          //           ],
+          //         ),
+          //       ),
+          //     ),
+          //     Expanded(
+          //       child: Row(
+          //         children: <Widget>[
+          //           Icon(Icons.stars),
+          //           Text(data['points'].toString())
+          //         ],
+          //       ),
+          //     ),
+          //   ],
+          // ),
           Divider(
             color: Colors.white,
             height: 20.0,

@@ -18,7 +18,8 @@ class _PresentationQuestionsListState extends State<PresentationQuestionsList> {
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: _firestore
-        .collection('presentations/${widget.presentationID}/questions')
+        .collection('questions')
+        .where('presentation', isEqualTo: widget.presentationID)
         // .orderBy('upvotesCount')
         .snapshots(),
       builder: (context, snapshot) {
@@ -58,20 +59,36 @@ class QuestionCard extends StatelessWidget {
     final timeAgo = timeago.format(createdAt);
     return Card(
       child: ListTile(
-        title: Text(data['question']),
-        // subtitle: Text('Asked by ${data['user']['username']} $timeAgo'),
-        trailing: Column(
-          mainAxisSize: MainAxisSize.min,
+        leading: Column(
           children: <Widget>[
-            IconButton(
-              icon: Icon(Icons.arrow_upward),
-              tooltip: 'Upvote this question',
-              onPressed: () {
-                print('Upvoting question...');
-              },
+            Text(
+              data['upvotesCount'].toString(),
+              style: TextStyle(
+                fontSize: 26.0,
+              ),
             ),
-            // Text('${data['upvotes'].length.toString()}'),
+            Text('Upvotes'),
           ],
+        ),
+        title: Text(data['question']),
+        subtitle: Text('Asked by ${data['authorUsername']} $timeAgo'),
+        trailing: IconButton(
+          icon: Icon(Icons.arrow_upward),
+          tooltip: 'Upvote this question',
+          onPressed: () {            
+            final DocumentReference questRef = _firestore.document('questions/${data.documentID}');
+            Firestore.instance.runTransaction((Transaction tx) async {
+              DocumentSnapshot questSnapshot = await tx.get(questRef);
+              if (questSnapshot.exists) {
+                final currentUpvotes = questSnapshot.data['upvotes'];
+                
+
+                await tx.update(questRef, <String, dynamic>{
+                  // 'upvotesCount': ,
+                });
+              }
+            });
+          },
         ),
       ), 
     );
