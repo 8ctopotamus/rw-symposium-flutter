@@ -58,11 +58,11 @@ class _CreateQuestionScreenState extends State<CreateQuestionScreen> {
                 final questionsRef = _firestore.collection('questions');
                 try {
                   await questionsRef.add({
+                    'presentationID': widget.presentationId,
                     'question': question,
                     'createdAt': DateTime.now().toUtc().millisecondsSinceEpoch,
                     'authorUsername': user['username'],
                     'authorEmail': user['email'],
-                    'presentation': widget.presentationId,
                     'upvotesCount': 0,
                     'upvotes': [],
                   });

@@ -19,8 +19,8 @@ class _PresentationQuestionsListState extends State<PresentationQuestionsList> {
     return StreamBuilder(
       stream: _firestore
         .collection('questions')
-        .where('presentation', isEqualTo: widget.presentationID)
-        // .orderBy('upvotesCount')
+        .where('presentationID', isEqualTo: widget.presentationID)
+        .orderBy('upvotesCount', descending: true)
         .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
@@ -35,10 +35,13 @@ class _PresentationQuestionsListState extends State<PresentationQuestionsList> {
             child: Text('Be the first to ask a question.'),
           );
         }
-        final questions = snapshot.data.documents.reversed;
+        final questions = snapshot.data.documents;
+        // questions.sort((a, b) {
+        //   return a['upvotesCount'].compareTo(b['upvotesCount']);
+        // });
+
         List<Widget> questionCards = [];
         for (var q in questions) {
-          // questionCards.add(Text(q['question'].toString()));
           questionCards.add(QuestionCard(data: q));
         }
         return ListView(
@@ -77,14 +80,19 @@ class QuestionCard extends StatelessWidget {
           tooltip: 'Upvote this question',
           onPressed: () {            
             final DocumentReference questRef = _firestore.document('questions/${data.documentID}');
-            Firestore.instance.runTransaction((Transaction tx) async {
+            _firestore.runTransaction((Transaction tx) async {
               DocumentSnapshot questSnapshot = await tx.get(questRef);
               if (questSnapshot.exists) {
-                final currentUpvotes = questSnapshot.data['upvotes'];
-                
-
+                final authorEmail = questSnapshot.data['authorEmail'];
+                List<String> upvotes = List.from(questSnapshot.data['upvotes']);                
+                if (upvotes.contains(authorEmail)) {
+                  upvotes.remove(authorEmail);
+                } else {
+                  upvotes.add(authorEmail);
+                }
                 await tx.update(questRef, <String, dynamic>{
-                  // 'upvotesCount': ,
+                  'upvotes': upvotes,
+                  'upvotesCount': upvotes.length,
                 });
               }
             });
