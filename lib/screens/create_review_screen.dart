@@ -88,7 +88,7 @@ class _CreateReviewScreenState extends State<CreateReviewScreen> {
               height: 8.0,
             ),
             RoundedButton(
-              color: RWColors.greenLight,
+              color: RWColors.turquise,
               text: 'Leave review',
               onPressed: () async {
                 setState(() {

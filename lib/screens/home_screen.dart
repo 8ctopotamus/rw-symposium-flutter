@@ -8,6 +8,7 @@ import 'package:rw_symposium_flutter/components/feed.dart';
 import 'package:rw_symposium_flutter/components/presentations_list.dart';
 import 'package:rw_symposium_flutter/components/user_list.dart';
 import 'package:rw_symposium_flutter/models/current_user.dart';
+import 'package:rw_symposium_flutter/screens/create_post_screen.dart';
 
 FirebaseUser loggedInUser;
 
@@ -62,6 +63,21 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Widget fab = null;
+    if (_widgetOptions[_selectedIndex] is Feed) {
+      fab = FloatingActionButton(
+        backgroundColor: RWColors.turquise,
+        child: Icon(
+          Icons.edit,
+          color: Colors.white,
+        ),
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(
+            builder: (context) => CreatePostScreen(),
+          ));
+        },
+      );
+    }
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -76,6 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
         title: Text('RW Symposium ${DateTime.now().year}'),
       ),
+      floatingActionButton: fab,
       body: _widgetOptions[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[

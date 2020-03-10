@@ -4,67 +4,81 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:rw_symposium_flutter/components/layout.dart';
 import 'package:rw_symposium_flutter/components/rounded_button';
-import 'package:rw_symposium_flutter/constants.dart';
 import 'package:rw_symposium_flutter/models/current_user.dart';
+import 'package:rw_symposium_flutter/screens/camera_screen.dart';
+import 'package:rw_symposium_flutter/constants.dart';
 
 final _firestore = Firestore.instance;
 
-class CreateQuestionScreen extends StatefulWidget {  
-  CreateQuestionScreen({this.presentationID});
-
-  static const String id = 'create_question_screen';
+class CreatePostScreen extends StatefulWidget {  
+  CreatePostScreen({this.presentationID});
+  static const String id = 'create_post_screen';
   final String presentationID;
-
-  _CreateQuestionScreenState createState() => _CreateQuestionScreenState();
+  _CreatePostScreenState createState() => _CreatePostScreenState();
 }
 
-class _CreateQuestionScreenState extends State<CreateQuestionScreen> {
-  String question;
+class _CreatePostScreenState extends State<CreatePostScreen> {
   bool showSpinner = false;
-
+  String text;
+  String authorAvatar = null;
+  String image = null;
+  
   @override
   Widget build(BuildContext context) {
-
     final user = Provider.of<CurrentUser>(context, listen: false).getUserData;
-
+    authorAvatar = user['avatar'];
     return Layout(
-      title: 'Ask a question',
+      title: 'Write a post',
       child: ModalProgressHUD(
         inAsyncCall: showSpinner,
         child: ListView(
           padding: EdgeInsets.all(30.0),
           children: <Widget>[
             TextField(
-              maxLines: 10,
+              maxLines: 5,
               keyboardType: TextInputType.multiline,
               textAlign: TextAlign.center,
               onChanged: (value) {
-                question = value;
+                text = value;
               },
               decoration: kInputDecorationStyle.copyWith(
-                hintText: 'What is your question?'
+                hintText: 'What are you thinking?'
               ),
             ),
+            
             SizedBox(
               height: 8.0,
             ),
+
+            RoundedButton(
+              color: Colors.transparent,
+              text: 'Attach image',
+              onPressed: () async {
+                Navigator.pushNamed(context, CameraScreen.id);
+              },
+            ),
+
+            SizedBox(
+              height: 8.0,
+            ),
+            
             RoundedButton(
               color: RWColors.turquise,
-              text: 'Ask question',
+              text: 'Post',
               onPressed: () async {
                 setState(() {
                   showSpinner = true;
                 });
-                final questionsRef = _firestore.collection('questions');
+                final reviewsRef = _firestore.collection('posts');
                 try {
-                  await questionsRef.add({
-                    'presentationID': widget.presentationID,
-                    'question': question,
+                  await reviewsRef.add({
                     'createdAt': DateTime.now().toUtc().millisecondsSinceEpoch,
+                    'authorAvatar': authorAvatar,
                     'authorUsername': user['username'],
                     'authorEmail': user['email'],
-                    'upvotesCount': 0,
-                    'upvotes': [],
+                    'likes': [],
+                    // 'image': image,
+                    'text': text,
                   });
                 } catch(err) {
                   print('[Firebase error]: $err');
@@ -81,4 +95,3 @@ class _CreateQuestionScreenState extends State<CreateQuestionScreen> {
     );
   }
 }
-// keyboardType: TextInputType.multiline,

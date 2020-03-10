@@ -8,9 +8,7 @@ import 'package:rw_symposium_flutter/constants.dart';
 
 class PresentationScreen extends StatefulWidget {
   final data;
-
   PresentationScreen({@required this.data});
-
   _PresentationScreenState createState() => _PresentationScreenState();
 }
 
@@ -57,7 +55,7 @@ class _PresentationScreenState extends State<PresentationScreen> {
           bottom: TabBar(
             indicatorColor: Colors.white,
             tabs: [
-              Tab(icon: Icon(Icons.info), text: 'Details',),
+              Tab(icon: Icon(Icons.info), text: 'About',),
               Tab(icon: Icon(Icons.question_answer), text: 'Questions',),
               Tab(icon: Icon(Icons.star), text: 'Reviews',),
             ],

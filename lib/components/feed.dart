@@ -16,8 +16,8 @@ class _FeedState extends State<Feed> {
     // use #RWAS2020 and tag @RealWealthMKTG when you share to FB, LI, TW
     return StreamBuilder(
       stream: _firestore
-        .collection('feed')
-        .orderBy('createdAt')
+        .collection('posts')
+        // .orderBy('createdAt')
         .limit(20)
         .snapshots(),
       builder: (context, snapshot) {
@@ -33,10 +33,10 @@ class _FeedState extends State<Feed> {
             child: Text('Be the first to post.'),
           );
         }
-        final questions = snapshot.data.documents.reversed;
+        final posts = snapshot.data.documents.reversed;
         List<PostCard> postCards = [];
-        for (var q in questions) {
-          postCards.add(PostCard(data: q));
+        for (var p in posts) {
+          postCards.add(PostCard(data: p));
         }
         return ListView(
           padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
@@ -55,9 +55,9 @@ class PostCard extends StatelessWidget {
     final createdAt = DateTime.fromMillisecondsSinceEpoch(data['createdAt']); 
     final timeAgo = timeago.format(createdAt);
 
-    if (data['image'] != null) {
-      print(data['image']);
-    }
+    // if (data['image'] != null) {
+    //   print(data['image']);
+    // }
 
     List<Widget> cardWidgets = [
       Row(
@@ -78,9 +78,9 @@ class PostCard extends StatelessWidget {
       Text('Likes: ${data['likes'].length}'),
       Text('Comments'),
     ];
-    // if (data['image'] != false) {
-    //   cardWidgets.insert(1, Image.network(data['image']));
-    // }
+    if (data['image'] != null) {
+      cardWidgets.insert(1, Image.network(data['image']));
+    }
     return Card(
       child: Container(
         padding: EdgeInsets.all(10.0),
