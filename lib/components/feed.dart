@@ -17,7 +17,6 @@ class _FeedState extends State<Feed> {
     return StreamBuilder(
       stream: _firestore
         .collection('posts')
-        // .orderBy('createdAt')
         .limit(20)
         .snapshots(),
       builder: (context, snapshot) {
@@ -54,18 +53,17 @@ class PostCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final createdAt = DateTime.fromMillisecondsSinceEpoch(data['createdAt']); 
     final timeAgo = timeago.format(createdAt);
-
-    // if (data['image'] != null) {
-    //   print(data['image']);
-    // }
-
+    if (data['image'] != null) {
+      print(data['image']);
+    }
     List<Widget> cardWidgets = [
       Row(
         children: <Widget>[
-          // AppAvatar(
-            // name: data['authorUsername'],
-            // image: data['authorAvatar'] ? data['authorAvatar'] : null,
-          // ),
+          AppAvatar(
+            name: data['authorUsername'],
+            image: data['authorAvatar'],
+          ),
+          SizedBox(width: 10.0),
           Column(
             children: <Widget>[
               Text(data['authorUsername']),
@@ -85,6 +83,8 @@ class PostCard extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(10.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: cardWidgets,
         ),
       )

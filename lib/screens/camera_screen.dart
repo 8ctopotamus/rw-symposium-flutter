@@ -103,7 +103,7 @@ class CameraState extends State<CameraScreen> {
             ? null
             : SizedBox(
                child: Image.file(File(imagePath)),
-               height: 290.0,
+               height: 300.0,
              ),
         ),
       ),
@@ -116,6 +116,7 @@ class CameraState extends State<CameraScreen> {
         setState(() {
           showCamera = false;
           imagePath = filePath;
+          Navigator.pop(context, filePath);
         });
       }
     });
@@ -190,14 +191,14 @@ class CameraState extends State<CameraScreen> {
     );
   }
 
-  IconData getCameraLensIcon(dir) {
-    return Icons.camera_front;
+  IconData getCameraLensIcon( CameraLensDirection lensDir) {
+    return lensDir == CameraLensDirection.front 
+      ? Icons.camera_front
+      : Icons.camera_rear;
   }
-
 
   Widget cameraTogglesRowWidget() {
     final List<Widget> toggles = <Widget>[];
-
     if (cameras != null) {
       if (cameras.isEmpty) {
         return const Text('No camera found');
@@ -217,8 +218,10 @@ class CameraState extends State<CameraScreen> {
         }
       }
     }
-
-    return Row(children: toggles);
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: toggles
+    );
   }
 
   void onNewCameraSelected(CameraDescription cameraDescription) async {
@@ -248,5 +251,4 @@ class CameraState extends State<CameraScreen> {
   Widget captionInputWidget() {
     return null;
   }
-
 }
