@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:rw_symposium_flutter/constants.dart';
-import 'package:rw_symposium_flutter/components/rounded_button';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:rw_symposium_flutter/components/rounded_button';
 import 'package:rw_symposium_flutter/screens/home_screen.dart';
+import 'package:rw_symposium_flutter/constants.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static const String id = 'registration_screen';
@@ -13,7 +14,9 @@ class RegistrationScreen extends StatefulWidget {
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
   final _auth = FirebaseAuth.instance;
+  final _firestore = Firestore.instance;
   String email;
+  String username;
   String password;
   bool showSpinner = false;
 
@@ -41,6 +44,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               ),
               SizedBox(
                 height: 48.0,
+              ),
+              TextField(
+                textAlign: TextAlign.center,
+                onChanged: (value) {
+                  username = value;
+                },
+                decoration: kInputDecorationStyle.copyWith(
+                    hintText: 'Username'
+                ),
+              ),
+              SizedBox(
+                height: 8.0,
               ),
               TextField(
                 keyboardType: TextInputType.emailAddress,
@@ -75,9 +90,23 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   setState(() {
                     showSpinner = true;
                   });
+                  String trimmedEmail = email.trim();
                   try {
-                    final newUser = await _auth.createUserWithEmailAndPassword(email: email.trim(), password: password.trim());
+                    final newUser = await _auth.createUserWithEmailAndPassword(email: trimmedEmail, password: password.trim());
                     if (newUser != null) {
+                      await _firestore
+                        .collection('users')
+                        .document(trimmedEmail)
+                        .setData({
+                          'avatar': false,
+                          'bio': "",
+                          'designation': "",
+                          'email': trimmedEmail,
+                          'phone': "",
+                          'points': 0,
+                          'username': username,
+                          'website': "",
+                        });
                       Navigator.pushNamed(context, HomeScreen.id);
                     }
                     setState(() {
@@ -86,6 +115,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   }
                   catch(e) {
                     print(e);
+                    setState(() {
+                      showSpinner = false;
+                    });
                   }
                 },
               ),
